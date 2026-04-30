@@ -1,28 +1,35 @@
-# Dockerfile
-FROM node:22-alpine AS builder
+    # Dockerfile
+    FROM node:22-alpine AS builder
 
-WORKDIR /app
+    WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+    COPY package*.json ./
+    RUN npm ci
 
-COPY tsconfig.json ./
-COPY src/ ./src/
-COPY swagger.ts ./
-COPY prisma/ ./prisma/
+    COPY tsconfig.json ./
+    COPY src/ ./src/
+    COPY src/swagger.ts ./
+    COPY prisma/ ./prisma/
 
-RUN npm run build
+    RUN npx prisma generate
 
-FROM node:22-alpine AS production
+    RUN npm run build
 
-WORKDIR /app
+    FROM node:22-alpine AS production
 
-COPY package*.json ./
-RUN npm ci --only=production
+    WORKDIR /app
 
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma ./prisma
+    # Install OpenSSL 1.1 compat library
+    RUN apk add --no-cache openssl
 
-EXPOSE 3000
+    COPY package*.json ./
+    RUN npm ci --only=production
 
-CMD ["node", "dist/server.js"]
+    COPY --from=builder /app/dist ./dist
+    COPY --from=builder /app/prisma ./prisma
+    COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+    COPY prisma/ ./prisma/
+
+    EXPOSE 3000
+
+    CMD ["node", "dist/server.js"]

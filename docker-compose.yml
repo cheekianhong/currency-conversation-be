@@ -12,8 +12,8 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       OPENEXCHANGERATES_APP_ID: your-openexchangerates-app-id
-      # JWT_ACCESS_SECRET: change-me-access-secret-min-32-chars-here
-      # JWT_REFRESH_SECRET: change-me-refresh-secret-min-32-chars-here
+      JWT_ACCESS_SECRET: change-me-access-secret-min-32-chars-here
+      JWT_REFRESH_SECRET: change-me-refresh-secret-min-32-chars-here
     depends_on:
       # mysql:
       #   condition: service_healthy
