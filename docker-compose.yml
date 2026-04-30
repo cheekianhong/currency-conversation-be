@@ -8,33 +8,34 @@ services:
       - '3000:3000'
     environment:
       NODE_ENV: production
-      DATABASE_URL: mysql://app_user:app_password@mysql:3306/currency_db
+      # DATABASE_URL: mysql://app_user:app_password@mysql:3306/currency_db
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      JWT_ACCESS_SECRET: change-me-access-secret-min-32-chars-here
-      JWT_REFRESH_SECRET: change-me-refresh-secret-min-32-chars-here
+      OPENEXCHANGERATES_APP_ID: your-openexchangerates-app-id
+      # JWT_ACCESS_SECRET: change-me-access-secret-min-32-chars-here
+      # JWT_REFRESH_SECRET: change-me-refresh-secret-min-32-chars-here
     depends_on:
-      mysql:
-        condition: service_healthy
+      # mysql:
+      #   condition: service_healthy
       redis:
         condition: service_healthy
 
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: currency_db
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: app_password
-    ports:
-      - '3306:3306'
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  # mysql:
+  #   image: mysql:8.0
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root_password
+  #     MYSQL_DATABASE: currency_db
+  #     MYSQL_USER: app_user
+  #     MYSQL_PASSWORD: app_password
+  #   ports:
+  #     - '3306:3306'
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   healthcheck:
+  #     test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
 
   redis:
     image: redis:7-alpine
@@ -46,5 +47,5 @@ services:
       timeout: 5s
       retries: 5
 
-volumes:
-  mysql_data:
+# volumes:
+#   mysql_data:

@@ -1,5 +1,6 @@
 // src/app.ts
 import express, { Application } from 'express';
+import cors from 'cors';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger';
@@ -14,8 +15,13 @@ export function createApp(): Application {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(
+    cors({
+      origin: '*',
+    }),
+  );
 
-  if (env.NODE_ENV !== 'test') {
+  if (env.NODE_ENV !== 'development') {
     app.use(morgan('combined', { stream: morganStream }));
   }
 

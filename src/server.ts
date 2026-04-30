@@ -9,8 +9,8 @@ import http from 'http';
 let server: http.Server;
 
 async function start(): Promise<void> {
-  await connectDatabase();
-  logger.info('Database connected');
+  // await connectDatabase();
+  // logger.info('Database connected');
 
   await connectRedis();
   logger.info('Redis connected');
