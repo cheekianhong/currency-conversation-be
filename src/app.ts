@@ -2,7 +2,7 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
-import { swaggerSpec } from '../swagger';
+import { swaggerSpec } from './swagger';
 import { morganStream } from './utils/logger';
 import { globalRateLimit } from './middlewares/rateLimit.middleware';
 import { errorMiddleware } from './middlewares/error.middleware';
