@@ -16,9 +16,22 @@ PORT=3001
 OPENEXCHANGERATES_APP_ID=...
 JWT_ACCESS_SECRET=your-access-secret-min-32-chars-long-here
 JWT_REFRESH_SECRET=your-refresh-secret-min-32-chars-long-here
+REDIS_HOST=...
+REDIS_PORT=6379
 ```
 
 > ⚠️ Replace `JWT_ACCESS_SECRET` and `JWT_REFRESH_SECRET` with secure random strings of at least 32 characters before running in production.
+
+---
+
+## Example Request
+
+```bash
+GET /api/convert/countries
+GET /api/rates
+GET /api/convert?from=USD&to=EUR
+GET /api/convert?from=USD&to=EUR&amount=100
+```
 
 ---
 
@@ -38,7 +51,9 @@ npm i
 npm run prisma:generate
 ```
 
-### 3. Start the development server
+### 3. Start redis server (if not starting yet)
+
+### 4. Start the development server
 
 ```bash
 npm run dev

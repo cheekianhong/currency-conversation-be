@@ -75,6 +75,11 @@ export class ConvertService {
     };
   }
 
+  async getRates(): Promise<Record<string, number>> {
+    const latest = await this.getLatestRates();
+    return latest.rates;
+  }
+
   private async getLatestRates(): Promise<LatestRatesResponse> {
     if (!env.OPENEXCHANGERATES_APP_ID) {
       throw new AppError(

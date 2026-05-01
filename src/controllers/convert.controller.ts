@@ -15,3 +15,8 @@ export const countries = asyncHandler(async (_req: Request, res: Response): Prom
   const result = await convertService.listCountries();
   res.status(HTTP_STATUS.OK).json({ status: 'success', data: result });
 });
+
+export const rates = asyncHandler(async (_req: Request, res: Response): Promise<void> => {
+  const result = await convertService.getRates();
+  res.status(HTTP_STATUS.OK).json({ status: 'success', data: result });
+});
